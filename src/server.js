@@ -9,31 +9,35 @@ const config = JSON.parse(fs.readFileSync("./config.json", "utf8"));
 const app = express();
 const port = 3000;
 
-// Function to dynamically fetch and serve OpenAPI documentation
-const serveApiDocs = async (app, config) => {
-  for (const api of config.apps) {
-    try {
-      // Fetch the OpenAPI document from the remote URI
-      const response = await axios.get(api.uri);
-      const openapiDocument = response.data;
 
-      // Serve the OpenAPI document using Swagger UI
-      app.use(
-        `/api-docs/${api.name}`,
-        swaggerUi.serve,
-        swaggerUi.setup(openapiDocument)
-      );
-    } catch (error) {
-      console.error(
-        `Failed to load OpenAPI document for ${api.name}: ${error}`
-      );
-    }
+// Dynamic endpoint to serve OpenAPI JSON
+app.get("/api-docs-json/:appName", async (req, res) => {
+  const appName = req.params.appName;
+  const apiConfig = config.apps.find(api => api.name === appName);
+  console.log(`Update document for app: ${appName} with config`)
+  if (!apiConfig) {
+    res.status(404).send({ message: "API not found" });
+    return;
   }
-};
 
-// Call the function and pass in the Express app and config
-serveApiDocs(app, config).then(() => {
-  console.log("All configured APIs are being served.");
+  try {
+    const response = await axios.get(apiConfig.uri);
+    res.json(response.data);
+  } catch (error) {
+    console.error(`Failed to fetch OpenAPI document for ${appName}: ${error}`);
+    res.status(500).send({ message: "Failed to fetch OpenAPI document" });
+  }
+});
+
+// Setup Swagger UI for each API with a dynamic OpenAPI JSON URL
+config.apps.forEach(api => {
+  const options = {
+    swaggerOptions: {
+      url: `/api-docs-json/${api.name}`,
+    }
+  };
+
+  app.use(`/api-docs/${api.name}`, swaggerUi.serve, swaggerUi.setup(null, options));
 });
 
 // Serve static files from the 'public' directory
