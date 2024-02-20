@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-documentation0-viewer
+  name: api-documentation-viewer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-documentation0-viewer
+      app: api-documentation-viewer
   template:
     metadata:
       labels:
-        app: api-documentation0-viewer
+        app: api-documentation-viewer
     spec:
       containers:
-        - name: api-documentation0-viewer
+        - name: api-documentation-viewer
           image: ghcr.io/eed-web-application/api-documentation-viewer:sha-a83394b
           resources:
             limits:

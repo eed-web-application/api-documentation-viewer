@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: api-documentation0-viewer-ingress
+  name: api-documentation-viewer-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
     - host: accel-webapp-dev.slac.stanford.edu
       http:
         paths:
           - pathType: Prefix
-            path: /api-documentation0-viewer(.*)
+            path: /api-doc(/|$)(.*)
             backend:
               service:
-                name: api-documentation0-viewer-service
+                name: api-documentation-viewer-service
                 port:
                   number: 80
