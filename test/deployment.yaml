@@ -14,12 +14,12 @@ spec:
     spec:
       containers:
         - name: api-documentation-viewer
-          image: ghcr.io/eed-web-application/api-documentation-viewer:sha-a83394b
+          image: ghcr.io/eed-web-application/api-documentation-viewer:sha-71edf7a
           resources:
             limits:
               memory: 512Mi
               cpu: "250m"
           ports:
-            - containerPort: 8080
+            - containerPort: 3000
       imagePullSecrets:
         - name: gh-secret
