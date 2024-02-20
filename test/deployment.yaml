@@ -23,7 +23,7 @@ spec:
             - name: BASE_URL
               value: /api-doc
             - name: URLS
-              value: "[ { url: 'https://petstore.swagger.io/v2/swagger.json', name: 'Petstore' } ]"
+              value: "[ { url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/elog', name: 'ELogs' } ]"
           ports:
             - containerPort: 8080
       imagePullSecrets:
