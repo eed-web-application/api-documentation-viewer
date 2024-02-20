@@ -49,15 +49,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-  deploy:
-    name: Start Deployment
-    runs-on: ubuntu-latest
-    needs: create-image
-    steps:
-      - run: |
-          gh workflow --repo eed-web-application/aosd-shift-reporting-frontend-deployment run Deployment -f deployment_image="${{needs.create-image.outputs.IMAGE_TO_DEPLOY}}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.TRIGGER_WORKFLOW_SECRET }}
   update-test-deployment:
         runs-on: ubuntu-latest
         environment: test
