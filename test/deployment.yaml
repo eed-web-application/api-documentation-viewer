@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-documentation0-viewer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-documentation0-viewer
+  template:
+    metadata:
+      labels:
+        app: api-documentation0-viewer
+    spec:
+      containers:
+        - name: api-documentation0-viewer
+          image: image-name
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "250m"
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: gh-secret
