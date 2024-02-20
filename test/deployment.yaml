@@ -19,6 +19,9 @@ spec:
             limits:
               memory: 512Mi
               cpu: "250m"
+          env:
+            - name: BASE_URL
+              value: /api-doc
           ports:
             - containerPort: 3000
       imagePullSecrets:
