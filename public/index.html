@@ -96,10 +96,10 @@
 
                 apps.forEach(app => {
                     const link = document.createElement('a');
-                    link.href = `#${basePath}api-docs/${app.name}`;
+                    link.href = `#${baseUrl}api-docs/${app.name}`;
                     link.textContent = app.name;
                     link.onclick = function() {
-                        docFrame.src = `${basePath}api-docs/${app.name}`;
+                        docFrame.src = `${baseUrl}api-docs/${app.name}`;
                         return false; // Prevent default action
                     };
                     sidebar.appendChild(link);
