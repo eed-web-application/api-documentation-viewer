@@ -71,8 +71,24 @@
     </div>
 
     <script>
-        // Fetch the apps configuration from the server
-        fetch('/config')
+        // Dynamically determine the hostname, port, and URI prefix
+        const hostname = window.location.hostname;
+        const port = window.location.port ? `:${window.location.port}` : ''; // Include the port if it exists
+        const protocol = window.location.protocol;
+
+        // Use window.location.pathname to help determine the URI prefix, if needed
+        const pathSegments = window.location.pathname.split('/').filter(segment => segment.length > 0);
+        let basePath = '/';
+        if (pathSegments.length > 0) {
+            // Assuming the app is served from a path like /some/path/, adjust as necessary
+            basePath = '/' + pathSegments.join('/') + '/';
+        }
+
+        // Construct the base URL with protocol, hostname, port, and basePath
+        const baseUrl = `${protocol}//${hostname}${port}${basePath}`;
+
+        // Use baseUrl for fetch requests
+        fetch(`${baseUrl}config`)
             .then(response => response.json())
             .then(apps => {
                 const sidebar = document.getElementById('sidebar');
@@ -80,10 +96,10 @@
 
                 apps.forEach(app => {
                     const link = document.createElement('a');
-                    link.href = `#/api-docs/${app.name}`;
+                    link.href = `#${basePath}api-docs/${app.name}`;
                     link.textContent = app.name;
                     link.onclick = function() {
-                        docFrame.src = `/api-docs/${app.name}`;
+                        docFrame.src = `${basePath}api-docs/${app.name}`;
                         return false; // Prevent default action
                     };
                     sidebar.appendChild(link);
