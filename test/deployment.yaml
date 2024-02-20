@@ -22,7 +22,9 @@ spec:
           env:
             - name: BASE_URL
               value: /api-doc
+            - name: URLS
+              value: "[ { url: 'https://petstore.swagger.io/v2/swagger.json', name: 'Petstore' } ]"
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
       imagePullSecrets:
         - name: gh-secret
