@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-documentation-viewer
-          image: ghcr.io/eed-web-application/api-documentation-viewer:sha-899b81a
+          image: ghcr.io/eed-web-application/api-documentation-viewer:sha-1c6548b
           resources:
             limits:
               memory: 512Mi
