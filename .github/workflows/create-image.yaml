@@ -61,9 +61,8 @@ jobs:
             - name: Checkout source code
               uses: actions/checkout@v3
             - run: |
-                export deployment_image="${{needs.create-image.outputs.IMAGE_TO_DEPLOY}}"
-                echo "Configure deploy with image ${{needs.create-image.outputs.IMAGE_TO_DEPLOY}}"
-                tools/set-image-name.sh $DEPLOY_IMAGE test/deployment.yaml
+                echo "Configure test deploy with image ${{needs.create-image.outputs.IMAGE_TO_DEPLOY}}"
+                tools/set-image-name.sh ${{needs.create-image.outputs.IMAGE_TO_DEPLOY}} test/deployment.yaml
                 
                 cat test/deployment.yaml
             - name: Commit and Push Changes
@@ -80,15 +79,17 @@ jobs:
   update-production-deployment:
         runs-on: ubuntu-latest
         environment: production
-        needs: update-test-deployment
+        needs: 
+            - update-test-deployment
+            - create-image
         steps:
             - name: Checkout source code
               uses: actions/checkout@v3
               with:
                 ref: main
             - run: |
-                echo "Configure deploy with image $DEPLOY_IMAGE"
-                tools/set-image-name.sh $DEPLOY_IMAGE production/deployment.yaml
+                echo "Configure production deploy with image ${{needs.create-image.outputs.IMAGE_TO_DEPLOY}}"
+                tools/set-image-name.sh ${{needs.create-image.outputs.IMAGE_TO_DEPLOY}} production/deployment.yaml
                 cat test/deployment.yaml
                 cat production/deployment.yaml
             - name: Commit and Push Changes
