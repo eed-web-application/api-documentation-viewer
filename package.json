@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A server for serving multiple OpenAPI documents based on configuration.",
   "main": "server.js",
+  "homepage": "/api-doc",
   "scripts": {
     "start": "node src/server.js"
   },

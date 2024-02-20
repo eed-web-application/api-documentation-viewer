@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-app.get("/api/config", (req, res) => {
+app.get("/config", (req, res) => {
   res.json(config.apps);
 });
 

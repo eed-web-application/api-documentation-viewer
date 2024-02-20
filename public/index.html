@@ -72,7 +72,7 @@
 
     <script>
         // Fetch the apps configuration from the server
-        fetch('/api/config')
+        fetch('/config')
             .then(response => response.json())
             .then(apps => {
                 const sidebar = document.getElementById('sidebar');
