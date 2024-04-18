@@ -23,13 +23,7 @@ spec:
             - name: BASE_URL
               value: /api-doc
             - name: URLS
-              value: |
-                "[ 
-                {url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/elog', name: 'ELogs' },
-                {url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/cbs', name:'Core Build System'},
-                {url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/cis', name:'Core Inventory System'},
-                {url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/cwm', name:'Core Work Management'} 
-                ]"
+              value: "[{url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/elog', name: 'ELogs' },{url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/cbs', name:'Core Build System'},{url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/cis', name:'Core Inventory System'},{url: 'https://accel-webapp-dev.slac.stanford.edu/api-doc/cwm', name:'Core Work Management'}]"
           ports:
             - containerPort: 8080
       imagePullSecrets:
